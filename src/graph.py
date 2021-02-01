@@ -1,8 +1,8 @@
 class Node():
-    def __init__(self, index, value):
+    def __init__(self, index, value = None):
         self.index = index
         self.neighbors = []
-        self.value = None
+        self.value = value
 
 class Graph():
     def __init__(self, edges):
