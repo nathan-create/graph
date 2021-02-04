@@ -42,4 +42,33 @@ class Graph():
             stack.remove(curr_node)
         return visited
 
+    def set_breadth_first_distance_and_previous(self,starting_node_index): 
+        for node in self.nodes:
+            node.distance = None
+            node.previous = None
+        main_node = self.nodes[starting_node_index]
+        main_node.distance = 0
+        queue = [main_node]
+        visited = []
+        while len(queue) != 0:
+            curr_node = queue[0]
+            visited.append(curr_node)
+            for neighbor in curr_node.neighbors:
+                if neighbor not in visited and neighbor not in queue:
+                    queue.append(neighbor)
+                    neighbor.distance = curr_node.distance + 1
+                    neighbor.previous = curr_node
+            queue.remove(curr_node)
+
+    def calc_distance(self, start_node, end_node):
+        self.set_breadth_first_distance_and_previous(start_node)
+        return self.nodes[end_node].distance
     
+    def calc_shortest_path(self, start_node, end_node):
+        self.set_breadth_first_distance_and_previous(start_node)
+        curr_node = self.nodes[end_node]
+        nodes = [curr_node]
+        while curr_node.index != start_node:
+            nodes.append(curr_node.previous)
+            curr_node = curr_node.previous
+        return [node.index for node in nodes][::-1]

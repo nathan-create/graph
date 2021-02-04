@@ -65,6 +65,3 @@ class Tree():
                     stack.insert(0, child)
             stack.remove(first)
         return visited
-
-
-    
