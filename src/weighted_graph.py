@@ -60,3 +60,14 @@ class WeightedGraph():
         if self.nodes[end].d_val == None:
             return False
         return self.nodes[end].d_val
+
+    def calc_shortest_path(self, start_node, end_node):
+        kept_edges = []
+        self.set_distance_and_previous(start_node)
+        for a,b in self.edges:
+            if self.nodes[b].d_val - self.nodes[a].d_val == self.weights[(a,b)]:
+                kept_edges.append((a,b))
+        graph_for_path = Graph(kept_edges)
+        graph_for_path.build_from_edges()
+        path = demo_graph.calc_shortest_path(start_node, end_node)
+        return path
